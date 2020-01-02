@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int lastElement(int nov50nwards[5][4], int chosenRow);
+
+int main()
+{
+    int chosenRow;
+    int lastElementInRow;
+    int nov50nwards[5][4] = {
+        {5, 12, 19, 26},
+        {6, 13, 20, 27},
+        {7, 14, 21, 28},
+        {8, 15, 22, 29},
+        {9, 16, 23, 30}};
+
+    printf("Choose a row: ");
+    scanf("%d", &chosenRow);
+
+    lastElementInRow = lastElement(nov50nwards, chosenRow);
+    printf("%d", lastElementInRow);
+    return 0;
+}
+
+/******
+ lastElement: finds last element of a given row
+ In: int x
+ Out: int
+ Post: last element of row is found and returned
+*******/
+
+int lastElement(int nov50nwards[5][4], int chosenRow)
+{
+    int continues = 1;
+    int i = 0;
+    int j = 0;
+
+    while (i < 6 && continues)
+    {
+        if (i == chosenRow)
+        {
+            return (nov50nwards[i - 1][3]);
+            continues = 0;
+        }
+        ++i;
+    }
+}
