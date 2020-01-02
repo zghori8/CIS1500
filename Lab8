@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() 
+{
+
+	int length;
+	int calc=0;
+	float answer;
+
+	printf("Please enter the length of the square (in cms): ");
+	scanf("%d", &length);
+
+	if (length > 0) {
+		printf("Enter 1 (for area) or 2 (for perimeter): ");
+                scanf("%d", &calc);
+	}
+
+	if (calc == 1) {
+		answer = length * length;
+		printf("Area if a square length %d cm is %.2f", length, answer);
+	}
+
+        else if (calc == 2) {
+                answer = 4 * length;
+                printf("Perimeter of a square length %d cm is %.2f", length, answer);
+        }
+	
+	else {
+		printf("Incorrect choice. Goodbye.");
+	}
+
+	return 0;
+}
