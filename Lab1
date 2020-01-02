@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main() {
+
+	char operator;
+	float  numOne;
+	float  numTwo;
+
+printf("Enter either '+' or '/'");
+scanf("%c", &operator);
+printf("Enter your first number.");
+scanf("%.2f", &numOne);
+printf("Enter your second number");
+scanf("%.2f", &numTwo);
+
+if (operator ==  '+')
+{
+	float  answer = numOne + numTwo;
+	printf ("%.2f +  %.2f = %.2f", numOne, numTwo, answer);
+}
+else if (operator == '/')
+{
+	int float  = numOne / numTwo;
+	printf ("%.2f / %.2f = %.2f", numOne, numTwo, answer);
+}
+else {
+	printf("Invalid entry");
+}
+
+	return 0;
+}
