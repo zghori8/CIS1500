@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+void read3Numbers (int * number1, int * number2, int * number3);
+int add3Numbers (int number1, int number2, int number3);
+
+int main()
+{
+    int number1, number2, number3, result;
+
+    printf("Enter 3 values: ");
+    read3Numbers(&number1, &number2, &number3);
+
+    result = add3Numbers(number1, number2, number3);
+
+    printf("The sum is %d\n", result);
+
+    return 0;
+}
+
+void read3Numbers (int * number1, int * number2, int * number3)
+{
+    scanf("%d %d %d", number1, number2, number3);
+}
+
+int add3Numbers (int number1, int number2, int number3)
+{
+    int add;
+    return add = number1 + number2 + number3;
+}
