@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() 
+{
+
+        float time;
+        int hilly;
+
+        printf("Enter your half-marathon time:");
+        scanf("%f", &time);
+
+        printf("Is it hilly (type 1 for yes or 2 for no):");
+        scanf("%d", &hilly);
+
+        if (hilly == 2) {
+                float answer;
+                answer = (time * 2) + 10;
+                printf("\nYour estimated time to run a marathon is %.1f", answer);
+        }
+
+        else if (hilly == 1) {
+                float answer;
+                answer = (time * 2) + 30;
+                printf("\nYour estimated time to run a marathon is %.1f", answer);
+        }
+
+        return 0;
+}
