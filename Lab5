@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main() 	
+{
+	int num;
+	int banner;
+	int i;
+
+	printf("Please enter a number between 1 and 31: ");
+	scanf("%d", &num);
+	printf("Enter number of banners: ");
+	scanf("%d", &banner);
+
+	if (banner <= 0) 
+	{
+		printf("You entered an invalid number of iterations.");
+	}
+	else 
+	{
+		for (i = 0; i < banner; i++) 
+		{
+			printf("\n\n");
+			printf("***************************************\n!!!!!!!!!!!!!!!!!\n****************************************\n"); // make sure to create new line
+       	       	 	printf("Welcome to week 5 lab - your lucky number is %d\n", num);
+    			printf("***************************************\n!!!!!!!!!!!!!!!!!\n****************************************\n");
+		}
+	}
+
+	return 0;
+}
