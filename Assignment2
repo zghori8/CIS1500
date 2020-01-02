@@ -1,0 +1,377 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+#define MAX_QUESTIONS 7
+
+//function prototypes
+
+void promptPlayerForName (char [50]);
+void printWelcomeMessage (char  [50]);
+int  calculateCurrentAward (int ,int);
+void popUpCurrentQuestion4choices (int);
+char askPlayerForLifeLine (void);
+void popUpCurrentQuestion2choices (int);
+char acceptPlayersFinalAnswer (void);
+bool isCorrectFinalAnswer (char, int, char [MAX_QUESTIONS]);
+void generateRandomGreeting (char [20]);
+int calculateReducedAward (int, int);
+
+int main(){
+
+	char allCorrectAnswers [MAX_QUESTIONS + 1] = "CBCBACA";   // for my set of questions
+	char greet [20];
+	char nameForGame[50];
+	int lifeLineUsed = 0; 
+	int questionNumber = 1;
+	char playersResponseLifeLine;
+	char finalAnswer;
+	int currentAwardAmount ;
+    int reducedAmount;
+    
+	promptPlayerForName(nameForGame);
+	
+	printWelcomeMessage(nameForGame);
+	
+	while (questionNumber <= MAX_QUESTIONS)
+    {
+	
+		currentAwardAmount = calculateCurrentAward(questionNumber, currentAwardAmount);
+		
+		popUpCurrentQuestion4choices(currentAwardAmount);
+	
+		if (lifeLineUsed == 0)
+        {
+			playersResponseLifeLine = askPlayerForLifeLine();
+		
+			if (playersResponseLifeLine == 'Y' || playersResponseLifeLine == 'y')
+            {
+		
+				popUpCurrentQuestion2choices(currentAwardAmount);
+				lifeLineUsed ++; 
+				printf("\nReminder - You get only 1 50-50 lifeline - and you are using it now \n\n");
+			}
+		}
+		
+		finalAnswer = acceptPlayersFinalAnswer ();
+		
+		if (isCorrectFinalAnswer (finalAnswer, questionNumber, allCorrectAnswers) )
+        {
+		
+		 	generateRandomGreeting(greet);
+			printf("%s - You just won $ %d\n", greet, currentAwardAmount);
+			
+			if (questionNumber < MAX_QUESTIONS)
+            {
+				printf("Let us play the next question now\n\n"); 
+			}
+		}
+		
+		else 
+		{
+			printf("Oops - that was incorrect. ");
+            
+            reducedAmount = calculateReducedAward (questionNumber, currentAwardAmount);
+
+			printf("You still won $%d. Well done.\n\n", reducedAmount);
+			
+            questionNumber = MAX_QUESTIONS;
+		}
+		questionNumber ++;
+	}
+	
+	printf("It was fun playing with you \n\n");
+	
+	return 0;
+}	
+
+/******
+ Name: Asks player for name
+ In: char 
+ Out: void
+ Post: firstName and lastName stored in fullName 
+*******/
+void promptPlayerForName(char fullName[50]) 
+{
+	char firstName[50];
+	char lastName[50];
+
+	printf("Enter your first name: ");
+	scanf("%s", firstName);
+	printf("Enter your last name: ");
+	scanf("%s", lastName);
+	strcpy(fullName, firstName); 
+	strcat(fullName, " ");		 
+	strcat(fullName, lastName);  
+}
+
+/******
+ Welcome banner: Prints a star banner
+ In: char
+ Out: void
+ Post: number of elements in fullName outputs stars + 8 
+*******/
+void printWelcomeMessage(char fullName[50])
+{
+	int i;
+	int j;
+	printf("*\n**\n***\n");
+
+	for (i = 0; i < strlen(fullName) + 8; ++i)
+	{
+		printf("*");
+	}
+
+	printf("\nWelcome %s\n", fullName);
+	printf("Let us play WDWM!\n");
+
+	for (j = 0; j < strlen(fullName) + 8; ++j)
+	{
+		printf("*");
+	}
+
+	printf("\n***\n**\n*\n\n");
+}
+
+/******
+ Award: Calculates award for even and odd questions
+ In: int, int
+ Out: int
+ Post: Award calculated for each even and odd question and returned
+*******/
+int calculateCurrentAward(int questionNumber, int awardPreviousQuestion)
+{
+	if (questionNumber == 1)
+	{
+		return 100;
+	}
+	else if (questionNumber % 2 == 0) 
+	{
+		return awardPreviousQuestion * 5;
+	}
+	else
+	{
+		return awardPreviousQuestion * 2; 
+	}
+}
+
+/******
+ Question: Pops up 4 choices for each question
+ In: int 
+ Out: void
+ Post: Choices are printed for each award question
+*******/
+void popUpCurrentQuestion4choices(int currentAwardAmount)
+{
+	printf("Here is the $ %d question:\n\n", currentAwardAmount);
+
+	switch (currentAwardAmount)
+	{
+	case 100:
+		printf("Which of the following programming language is taught in CIS1500 at the University of Guelph?\n\n");
+		printf("A. Python \t\t\t B. Cobra\nC. C \t\t\t\t D. Java\n\n");
+		break;
+
+	case 500:
+		printf("Which Canadian chain first opened in Hamilton in 1964?\n\n");
+		printf("A. McDonalds \t\t\t B. Tim Hortons\nC. Wendy's \t\t\t D. Mr. Sub\n\n");
+		break;
+
+	case 1000:
+		printf("What is Canada's national sport?\n\n");
+		printf("A. Hockey \t\t\t B. Lacrosse\nC. Hockey and Lacrosse \t\t D. Baseball\n\n");
+		break;
+
+	case 5000:
+		printf("Which Canadian city ranks as the most educated in the country?\n\n");
+		printf("A. Montreal \t\t\t B. Ottawa\nC. Vancouver \t\t\t D. Toronto\n\n");
+		break;
+
+	case 10000:
+		printf("What is Canada's highest mountain?\n\n");
+		printf("A. Mount Logan, Yukon \t\t\t B. Whistler Mountain, BC\nC. Mont Tremblant, Quebec \t\t D. Tip Top Mountain, Ontario\n\n");
+		break;
+
+	case 50000:
+	    printf("What is the easternmost province of Canada?\n\n");
+		printf("A. Ontario \t\t\t B. Prince Edward Island\nC. Newfoundland \t\t D. Nova Scotia\n\n");
+		break;
+
+	case 100000:
+		printf("The southernmost point of mainland Canada is called Point Pelee. What province is it in?\n\n");
+		printf("A. Ontario \t\t\t B. Quebec\nC. Newfoundland \t\t D. Nova Scotia\n\n");
+		break;
+	}
+}
+
+/******
+ Life Line: Ask player if they wish to use life line
+ In: void
+ Out: char
+ Post: response compared to user input and continues to run until valid option entered and returned
+*******/
+char askPlayerForLifeLine(void)
+{
+	int isValidResponse = 1;
+	char response;
+	printf("Would you like to use a lifeline (50–50)?\n");
+
+	while (isValidResponse)
+	{
+		printf("Enter Y or y, N or n: ");
+		scanf(" %c", &response);
+		printf("\n");
+
+		if (response == 'Y' || response == 'y') 
+		{
+			printf("OK - here are your 2 choices after using the 50-50 lifeline\n\n");
+			isValidResponse = 0;
+		}
+		else if (response == 'N' || response == 'n')
+		{
+			isValidResponse = 0; 
+		}
+		else
+		{
+			printf("Invalid option entered\n\n"); 
+		}
+	}
+	return response;
+}
+
+/******
+ Questions: If life line option chosen, 2 choices shown
+ In: int 
+ Out: void 
+ Post: 2 choices printed for each award
+*******/
+void popUpCurrentQuestion2choices(int currentAwardAmount)
+{
+	switch (currentAwardAmount)
+	{
+	case 100:
+		printf("A. Python\nC. C\n");
+		break;
+
+	case 500:
+		printf("B. Tim Hortons\nD. Mr. Sub\n");
+		break;
+
+	case 1000:
+		printf("B. Lacrosse\nC. Hockey and Lacrosse\n");
+		break;
+
+	case 5000:
+		printf("A. Montreal\nB. Ottawa\n");
+		break;
+
+	case 10000:
+		printf("A. Mount Logan, Yukon\nB. Whistler Mountain, BC\n");
+		break;
+
+	case 50000:
+		printf("B. Prince Edward Island\nC. Newfoundland\n");
+		break;
+
+	case 100000:
+		printf("A. Ontario\nD. Nova Scotia\n");
+		break;
+	}
+}
+
+/******
+ Final Answer: final choice is inputted 
+ In: void
+ Out: char 
+ Post: response compared to user input and continues to run until valid option entered and returned
+*******/
+char acceptPlayersFinalAnswer(void)
+{
+	int isValidAnswer = 1;
+	char letter;
+
+	while (isValidAnswer)
+	{
+		printf("Enter your FINAL ANSWER ('A', 'B', 'C' OR 'D') here: ");
+		scanf(" %c", &letter);
+		printf("\n");
+
+		if (letter == 'A' || letter == 'B' || letter == 'C' || letter == 'D') //comparing response to user input value
+		{
+			isValidAnswer = 0; 
+		}
+	}
+	return letter;
+}
+
+/******
+ Final Answer: user input compared to correct answer to determine if true or false 
+ In: char, int, char 
+ Out: bool 
+ Post: returns true or false
+*******/
+bool isCorrectFinalAnswer(char finalAnswer, int questionNumber, char allCorrectAnswers[MAX_QUESTIONS])
+{
+	if (finalAnswer == allCorrectAnswers[questionNumber - 1])
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/******
+ Random Greeting: random function used to generate greeting for each round
+ In: char
+ Out: void 
+ Post: random response for each possible value from 1-5 
+*******/
+void generateRandomGreeting(char greet[20])
+{
+	int randGreet = rand() % 5 + 1;
+
+	switch (randGreet)
+	{
+	case 1:
+		printf("Bravo");
+		break;
+
+	case 2:
+        printf("Congrats");
+		break;
+
+	case 3:
+		printf("Well done");
+		break;
+
+	case 4:
+		printf("Very nice");
+		break;
+
+	case 5:
+		printf("Proud of you");
+		break;
+	}
+}
+
+/******
+ Reduced Award: calculates final award at the end of the game 
+ In: int, int
+ Out: int 
+ Post: calculated award for even and odd number questions and returns value 
+*******/
+int calculateReducedAward(int questionNumber, int currentAwardAmount)
+{
+	if (questionNumber % 2 == 0) //even number question
+	{
+		return currentAwardAmount / 5;
+	}
+	else
+	{
+		return currentAwardAmount / 2;
+	}
+}
