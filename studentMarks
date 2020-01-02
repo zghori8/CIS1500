@@ -1,0 +1,103 @@
+#include <stdio.h>
+
+int main()
+{
+  float weeklyLabs;
+  float dailyPractice;
+  float labExam1;
+  float labExam2;
+  float a1;
+  float a2;
+  float a3; 
+  float overall;
+  float mark; 
+  float goal;
+  float goal2;
+  int mossA1;
+  int mossA2;
+  int mossA3;
+  int bonus = 0;
+
+  printf("Enter the following marks (each out of 100):\n\n");
+
+  printf("Weekly labs: ");
+  scanf("%f", &weeklyLabs);
+
+  printf("Daily Practice: ");
+  scanf("%f", &dailyPractice);
+
+  printf("Lab Exam 1: ");
+  scanf("%f", &labExam1);
+
+  printf("Lab Exam 2: ");
+  scanf("%f", &labExam2);
+
+  if (labExam1 == 100 && labExam2 == 100)
+  {
+    bonus = 3;
+  }
+
+  printf("Assignment 1: ");
+  scanf("%f", &a1);
+
+  printf("MOSS Output for Assignment 1 (0 / 1): ");
+  scanf("%d", &mossA1);
+
+  printf("Assignment 2: ");
+  scanf("%f", &a2);
+
+  printf("MOSS Output for Assignment 2 (0 / 1): ");
+  scanf("%d", &mossA2);
+
+  printf("Assignment 3: ");
+  scanf("%f", &a3);
+
+  printf("MOSS Output for Assignment 3 (0 / 1): ");
+  scanf("%d", &mossA3);
+
+  printf("\nHow much do you desire as an overall course grade: ");
+  scanf("%f", &overall);
+
+  if (mossA1 == 0)
+  {
+    a1 = 0;
+  }
+  if (mossA2 == 0)
+  {
+    a2 = 0;
+  }
+  if (mossA3 == 0)
+  {
+    a3 = 0;
+  }
+
+  if (mossA1 == 0 && mossA2 == 0 && mossA3 == 0)
+  {
+    printf("\n***************************************************\nYou cannot pass this course - try harder next time.		\n***************************************************\n");
+  }
+  else
+  {
+    mark = (weeklyLabs * 0.1) + (dailyPractice * 0.1) + (labExam1 * 0.1) + (labExam2 * 0.1) + (a1 * 0.05) + (a2 * 0.1) + (a3 * 0.1) + bonus;
+    goal = overall - mark;
+    goal2 = (goal / 35.00) * 100;
+
+    printf("\n****************************************************\nAssessment\tWeight(in %%)\tMarks\n");
+    printf("----------------------------------------------------\n");
+    printf("Weekly Labs\t\t10\t%.2f\n", weeklyLabs);
+    printf("Daily Practices\t\t10\t%.2f\n", dailyPractice);
+    printf("Lab Exam 1\t\t10\t%.2f\n", labExam1);
+    printf("Lab Exam 2\t\t10\t%.2f\n", labExam2);
+    printf("Bonus from Lab Exams:\t\t%d\n", bonus);
+    printf("Assignment 1\t\t5\t%.2f\n", a1);
+    printf("Assignment 2\t\t10\t%.2f\n", a2);
+    printf("Assignment 3\t\t10\t%.2f\n", a3);
+    printf("Final Exam\t\t35\tTo be determined\n\n");
+    printf("*****************************************************\n\n");
+    printf("Current course mark = %.2f / 65.00\n\n", mark);
+    printf("You need %.2f / 35.00 to reach your goal (%.0f)\n", goal, overall);
+    printf("In percentage, you need %.0f %% to reach your goal (%.0f)\n", goal2, overall);
+    printf("*****************************************************\n");
+  }
+
+  return 0;
+}
